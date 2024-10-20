@@ -107,7 +107,7 @@ COPY scripts/triage.py /benchmark/scripts
 COPY scripts/run_sparrow.py /benchmark/scripts
 RUN python3 /benchmark/scripts/run_sparrow.py all thin
 
-# Generate targ-inst data for programs Sparrow cannot analyze.
+# Generate inst-target data for programs that Sparrow cannot analyze.
 COPY docker-setup/target/func/lua /benchmark/DAFL-input/inst-targ/lua
 COPY docker-setup/target/func/php /benchmark/DAFL-input/inst-targ/php
 COPY docker-setup/target/func/openssl /benchmark/DAFL-input/inst-targ/openssl
