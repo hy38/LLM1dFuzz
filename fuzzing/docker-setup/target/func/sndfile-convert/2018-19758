@@ -1,0 +1,4 @@
+wav.c:wav_write_header
+sndfile.c:sf_writef_int
+common.c:sfe_copy_data_int
+sndfile-convert.c:main

@@ -1,0 +1,16 @@
+zend_alloc.c:__zend_malloc
+zend_alloc.c:_emalloc
+zend_alloc.c:_estrndup
+exif.c:exif_thumbnail_extract
+exif.c:exif_process_IFD_in_JPEG
+exif.c:exif_process_TIFF_in_JPEG
+exif.c:exif_process_APP1
+exif.c:exif_scan_JPEG_header
+exif.c:exif_scan_FILE_header
+exif.c:exif_read_from_impl
+exif.c:exif_read_from_stream
+exif.c:zif_exif_read_data
+zend.c:zend_execute_scripts
+main.c:php_execute_script
+php_cli.c:do_cli
+php_cli.c:main

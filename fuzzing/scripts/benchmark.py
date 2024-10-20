@@ -47,6 +47,75 @@ TEST_TARGETS = [
 ]
 
 
+SLICE_TARGETS = {
+    'swftophp-4.7': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2016-9827']
+    },
+    'lrzip-ed51e14': {
+        'frontend':'clang',
+        'entry_point':'main',
+        'bugs': ['2018-11496']
+    },
+    'objdump': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-8397']
+    },
+    'objcopy': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-8393']
+    },
+    'nm': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-14940']
+    },
+    'readelf': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-16828']
+    },
+    'strip': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-7303']
+    },
+    'cxxfilt': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2016-4487']
+    },
+    'xmllint': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2017-9047']
+    },
+    'cjpeg-1.5.90': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2018-14498']
+    },
+    'pngimage': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2018-13785']
+    },
+    'tiffcp': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2016-10269']
+    },
+    'sqlite3': {
+        'frontend':'cil',
+        'entry_point':'main',
+        'bugs': ['2019-19923']
+    },
+}
+
+
 def generate_fuzzing_worklist(benchmark, iteration, seed_mode):
     worklist = []
     if benchmark == "all":

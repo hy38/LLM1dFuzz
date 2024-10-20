@@ -68,6 +68,9 @@ COPY docker-setup/pre-builts/SelectFuzz/llvm4.tar.gz* /fuzzer/
 COPY docker-setup/setup_SelectFuzz.sh /fuzzer/setup_SelectFuzz.sh
 RUN ./setup_SelectFuzz.sh
 
+# Setup DAFL.
+COPY docker-setup/setup_DAFL.sh /fuzzer/setup_DAFL.sh
+RUN ./setup_DAFL.sh
 
 # Create a benchmark directory and start working there.
 RUN mkdir -p /benchmark/bin && \
@@ -84,6 +87,32 @@ ENV ASAN_OPTIONS=allocator_may_return_null=1,detect_leaks=0
 ENV USE_ZEND_ALLOC=0
 
 
+# Run smake on bechmarks to prepare input for sparrow
+COPY docker-setup/patches /benchmark/patches
+COPY smake/ /smake
+COPY docker-setup/run-smake.sh /benchmark/run-smake.sh
+RUN /benchmark/run-smake.sh
+RUN rm /benchmark/run-smake.sh
+
+# Setup Sparrow
+COPY docker-setup/setup_Sparrow.sh /setup_Sparrow.sh
+RUN /setup_Sparrow.sh
+RUN rm /setup_Sparrow.sh
+
+# Analyze benchmark with Sparrow.
+RUN mkdir /benchmark/scripts
+COPY scripts/benchmark.py /benchmark/scripts
+COPY scripts/common.py /benchmark/scripts
+COPY scripts/triage.py /benchmark/scripts
+COPY scripts/run_sparrow.py /benchmark/scripts
+RUN python3 /benchmark/scripts/run_sparrow.py all thin
+
+# Generate targ-inst data for programs Sparrow cannot analyze.
+COPY docker-setup/target/func/lua /benchmark/DAFL-input/inst-targ/lua
+COPY docker-setup/target/func/php /benchmark/DAFL-input/inst-targ/php
+COPY docker-setup/target/func/openssl /benchmark/DAFL-input/inst-targ/openssl
+COPY docker-setup/target/func/sndfile-convert /benchmark/DAFL-input/inst-targ/sndfile-convert
+
 # Build benchmark with AFLpp.
 COPY docker-setup/benchmark-project /benchmark/project
 COPY docker-setup/build_bench_common.sh /benchmark/build_bench_common.sh
@@ -92,12 +121,19 @@ RUN ./build_bench_ASAN.sh
 COPY docker-setup/build_bench_AFLpp.sh /benchmark/build_bench_AFLpp.sh
 RUN ./build_bench_AFLpp.sh
 
+# Copy line info for directed fuzzing.
+COPY docker-setup/target/line /benchmark/target/line
+
 # Build benchmarks with SelectFuzz.
 COPY docker-setup/build_bench_SelectFuzz.sh /benchmark/build_bench_SelectFuzz.sh
 RUN ./build_bench_SelectFuzz.sh
 
-# Copy line info for directed fuzzing.
-COPY docker-setup/target/line /benchmark/target/line
+# Build benchmarks with DAFL and DAFL_selIns.
+COPY docker-setup/build_bench_DAFL.sh /benchmark/build_bench_DAFL.sh
+COPY docker-setup/build_bench_DAFL_selIns.sh /benchmark/build_bench_DAFL_selIns.sh
+RUN ./build_bench_DAFL.sh
+RUN ./build_bench_DAFL_selIns.sh
+
 
 # Copy scripts.
 RUN mkdir /benchmark/scripts
