@@ -68,21 +68,20 @@ done
 
 
 ### Program: binutils-2.27
-# Disable strip for now.
-#cd /benchmark
-#program="binutils-2.27"
-#binaries="strip"
-#build_target $program $CC $CXX " "
-#cd /benchmark/RUNDIR-$program/$program
-#make clean
-#yes | /smake/smake --init
-#/smake/smake -j 1
-#cd /benchmark/RUNDIR-$program
-#for binary in $binaries; do
-#    cp -r $program/sparrow/binutils/$binary-new /benchmark/smake-out/$binary || exit 1
-#done
-#cd /benchmark
-#rm -rf /benchmark/RUNDIR*
+cd /benchmark
+program="binutils-2.27"
+binaries="strip"
+build_target $program $CC $CXX " "
+cd /benchmark/RUNDIR-$program/$program
+make clean
+yes | /smake/smake --init
+/smake/smake -j 1
+cd /benchmark/RUNDIR-$program
+for binary in $binaries; do
+    cp -r $program/sparrow/binutils/$binary-new /benchmark/smake-out/$binary || exit 1
+done
+cd /benchmark
+rm -rf /benchmark/RUNDIR*
 
 
 ### Program: binutils-2.29
