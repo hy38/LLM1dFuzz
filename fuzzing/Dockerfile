@@ -72,6 +72,12 @@ RUN ./setup_SelectFuzz.sh
 COPY docker-setup/setup_DAFL.sh /fuzzer/setup_DAFL.sh
 RUN ./setup_DAFL.sh
 
+# Copy scripts.
+RUN mkdir /benchmark/scripts
+COPY scripts/benchmark.py /benchmark/scripts
+COPY scripts/common.py /benchmark/scripts
+COPY scripts/triage.py /benchmark/scripts
+
 # Create a benchmark directory and start working there.
 RUN mkdir -p /benchmark/bin && \
     mkdir -p /benchmark/seed && \
@@ -134,12 +140,6 @@ COPY docker-setup/build_bench_DAFL_selIns.sh /benchmark/build_bench_DAFL_selIns.
 RUN ./build_bench_DAFL.sh
 RUN ./build_bench_DAFL_selIns.sh
 
-
-# Copy scripts.
-RUN mkdir /benchmark/scripts
-COPY scripts/benchmark.py /benchmark/scripts
-COPY scripts/common.py /benchmark/scripts
-COPY scripts/triage.py /benchmark/scripts
 
 # Copy script for updating seeds.
 COPY docker-setup/update_seeds.sh /benchmark/
