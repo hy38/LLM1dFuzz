@@ -72,12 +72,6 @@ RUN ./setup_SelectFuzz.sh
 COPY docker-setup/setup_DAFL.sh /fuzzer/setup_DAFL.sh
 RUN ./setup_DAFL.sh
 
-# Copy scripts.
-RUN mkdir /benchmark/scripts
-COPY scripts/benchmark.py /benchmark/scripts
-COPY scripts/common.py /benchmark/scripts
-COPY scripts/triage.py /benchmark/scripts
-
 # Create a benchmark directory and start working there.
 RUN mkdir -p /benchmark/bin && \
     mkdir -p /benchmark/seed && \
@@ -85,6 +79,12 @@ RUN mkdir -p /benchmark/bin && \
     mkdir -p /benchmark/driver
 COPY docker-setup/seed/empty /benchmark/seed/empty
 WORKDIR /benchmark
+
+# Copy scripts.
+RUN mkdir /benchmark/scripts
+COPY scripts/benchmark.py /benchmark/scripts
+COPY scripts/common.py /benchmark/scripts
+COPY scripts/triage.py /benchmark/scripts
 
 # To use ASAN during the benchmark build, these option are needed.
 ENV ASAN_OPTIONS=allocator_may_return_null=1,detect_leaks=0
