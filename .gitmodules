@@ -1,9 +1,9 @@
-[submodule "fuzzing/sparrow"]
-	path = fuzzing/sparrow
-	url = https://github.com/prosyslab/sparrow/tree/0422e320d39f2001cb1dbd85edb6488e048fbb6d
-[submodule "fuzzing/smake"]
-	path = fuzzing/smake
-	url = https://github.com/prosyslab/smake/tree/4820d08fc1e43555c2be842984d9a7043d42d07b
-[submodule "fuzzing/DAFL"]
-	path = fuzzing/DAFL
-	url = https://github.com/prosyslab/DAFL/tree/a6fcc56c2d10c4cdef51f64927af8df3d309551b
+[submodule "DAFL"]
+	path = DAFL
+	url = https://github.com/prosyslab/DAFL.git
+[submodule "sparrow"]
+	path = sparrow
+	url = https://github.com/prosyslab/sparrow.git
+[submodule "smake"]
+	path = smake
+	url = https://github.com/prosyslab/smake.git
