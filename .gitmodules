@@ -1,0 +1,9 @@
+[submodule "fuzzing/DAFL"]
+	path = fuzzing/DAFL
+	url = https://github.com/prosyslab/DAFL.git
+[submodule "fuzzing/smake"]
+	path = fuzzing/smake
+	url = https://github.com/prosyslab/smake.git
+[submodule "fuzzing/sparrow"]
+	path = fuzzing/sparrow
+	url = https://github.com/prosyslab/sparrow.git
