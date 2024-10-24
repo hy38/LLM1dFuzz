@@ -86,7 +86,7 @@ COPY docker-setup/seed/empty /benchmark/seed/empty
 WORKDIR /benchmark
 
 # Copy scripts.
-RUN mkdir /benchmark/scripts
+RUN mkdir -p /benchmark/scripts
 COPY scripts/benchmark.py /benchmark/scripts
 COPY scripts/common.py /benchmark/scripts
 COPY scripts/triage.py /benchmark/scripts
@@ -121,10 +121,6 @@ RUN /benchmark/run-smake.sh
 RUN rm /benchmark/run-smake.sh
 
 # Analyze benchmark with Sparrow.
-RUN mkdir /benchmark/scripts
-COPY scripts/benchmark.py /benchmark/scripts
-COPY scripts/common.py /benchmark/scripts
-COPY scripts/triage.py /benchmark/scripts
 COPY scripts/run_sparrow.py /benchmark/scripts
 RUN python3 /benchmark/scripts/run_sparrow.py all thin
 

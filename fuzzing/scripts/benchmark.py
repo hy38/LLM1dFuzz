@@ -163,6 +163,17 @@ def generate_fuzzing_worklist(benchmark, iteration, seed_mode):
     return worklist
 
 
+def generate_slicing_worklist(benchmark):
+    if benchmark == "all":
+        worklist = list(SLICE_TARGETS.keys())
+    elif benchmark in SLICE_TARGETS:
+        worklist = [benchmark]
+    else:
+        print("Unsupported benchmark: %s" % benchmark)
+        exit(1)
+    return worklist
+
+
 def check_targeted_crash(targ, replay_buf):
     for (targ_prog, _, _, _, crash_checker) in FUZZ_TARGETS:
         if targ_prog == targ:
