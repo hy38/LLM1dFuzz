@@ -35,18 +35,18 @@ function build_with_DAFL() {
 # Build with DAFL
 mkdir -p /benchmark/build_log
 mkdir -p /benchmark/bin/DAFL
-build_with_AFLpp "libming-4.7" "swftophp-4.7 2016-9827" &
-build_with_AFLpp "lrzip-ed51e14" "lrzip-ed51e14 2018-11496" &
-build_with_AFLpp "binutils-2.26" "cxxfilt 2016-4487" &
-build_with_AFLpp "binutils-2.28" "objcopy 2017-8393" &
-build_with_AFLpp "binutils-2.29" "readelf 2017-16828" &
-build_with_AFLpp "libxml2-2.9.4" "xmllint 2017-9047" &
-build_with_AFLpp "libjpeg-1.5.90" "cjpeg-1.5.90 2018-14498" &
+build_with_DAFL "libming-4.7" "swftophp-4.7 2016-9827" &
+build_with_DAFL "lrzip-ed51e14" "lrzip-ed51e14 2018-11496" &
+build_with_DAFL "binutils-2.26" "cxxfilt 2016-4487" &
+build_with_DAFL "binutils-2.28" "objcopy 2017-8393" &
+build_with_DAFL "binutils-2.29" "readelf 2017-16828" &
+build_with_DAFL "libxml2-2.9.4" "xmllint 2017-9047" &
+build_with_DAFL "libjpeg-1.5.90" "cjpeg-1.5.90 2018-14498" &
 
-build_with_AFLpp "libsndfile-1.0.28" "sndfile-convert 2018-19758" &
-build_with_AFLpp "libtiff-4.0.7" "tiffcp 2016-10269" &
-build_with_AFLpp "libpng-1.6.35" "pngimage 2018-13785" &
+build_with_DAFL "libsndfile-1.0.28" "sndfile-convert 2018-19758" &
+build_with_DAFL "libtiff-4.0.7" "tiffcp 2016-10269" &
+build_with_DAFL "libpng-1.6.35" "pngimage 2018-13785" &
 
 wait
 
-build_with_AFLpp "sqlite-3.30.1" "sqlite3 2019-19923"
+build_with_DAFL "sqlite-3.30.1" "sqlite3 2019-19923"
