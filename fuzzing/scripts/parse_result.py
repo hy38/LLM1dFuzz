@@ -165,6 +165,43 @@ def print_result(outdir, exp_id, targ_list, timeout, iter_cnt, tools, seed_mode)
         tte_df.to_csv(os.path.join(outdir, "%s.tsv" % exp_id), index=False, sep="\t")
 
 
+    elif seed_mode == "4-8":
+        for tool in tools:
+            med_tte_lists_by_mode = {mode: [] for mode in SEED_MODES[6:11]}
+            for targ in targ_list:
+                print(targ)
+                if "objcopy" in targ: # objcopy only has 8 seeds
+                    iter_seed_modes = SEED_MODES[6:8]
+                elif "openssl" in targ: # openssl only has 2 seeds
+                    pass
+                else:
+                    iter_seed_modes = SEED_MODES[6:11]
+
+                for mode in iter_seed_modes:
+                    tte_list = []
+                    for iter_id in range(iter_cnt):
+                        targ_dir = os.path.join(outdir, tool, "%s-iter-%d-%s" % (targ, iter_id, mode))
+                        tte = parse_tte(targ, targ_dir)
+                        tte_list.append(tte)
+                    med_tte = median_tte(tte_list, timeout)
+                    found_iter_cnt = iter_cnt - len([x for x in tte_list if (x is None or x > timeout)])
+                    if ">" in med_tte:
+                        med_tte = "N.A."
+                    med_tte = "%s(%d/%d)" % (med_tte, found_iter_cnt, iter_cnt)
+                    med_tte_lists_by_mode[mode].append(med_tte)
+
+                if "objcopy" in targ:
+                    print("there")
+                    for mode in SEED_MODES[8:11]:
+                        med_tte_lists_by_mode[mode].append("99999")
+
+            for mode in SEED_MODES[6:11]:
+                df_dict[f"{tool}_{mode}"] = med_tte_lists_by_mode[mode]
+
+        tte_df = pd.DataFrame.from_dict(df_dict)
+        tte_df.to_csv(os.path.join(outdir, "%s.csv" % exp_id), index=False)
+        tte_df.to_csv(os.path.join(outdir, "%s.tsv" % exp_id), index=False, sep="\t")
+
     else:
         # For each program fuzzing
         for tool in tools:
