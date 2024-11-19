@@ -122,6 +122,8 @@ def generate_fuzzing_worklist(benchmark, iteration, seed_mode):
         TARGETS = FUZZ_TARGETS
     elif benchmark == "selectfuzz":
         TARGETS = SELECTFUZZ_TARGETS
+    elif benchmark == "dafl":
+        TARGETS = FUZZ_TARGETS
     elif benchmark == "test":
         TARGETS = TEST_TARGETS
     else:
@@ -142,6 +144,19 @@ def generate_fuzzing_worklist(benchmark, iteration, seed_mode):
                 iter_seed_modes = SEED_MODES[:2]
             else:
                 iter_seed_modes = SEED_MODES
+
+            for mode in iter_seed_modes:
+                for i in range(iteration):
+                    iter_id = "iter-%d" % i
+                    worklist.append((targ_prog, cmdline, src, iter_id, mode, additional_option))
+
+        elif seed_mode == "4-8":
+            if "objcopy" in targ_prog: # objcopy only has 8 seeds
+                iter_seed_modes = SEED_MODES[6:8]
+            elif "openssl" in targ_prog: # openssl only has 2 seeds
+                pass # skip openssl for this case
+            else:
+                iter_seed_modes = SEED_MODES[6:11]
 
             for mode in iter_seed_modes:
                 for i in range(iteration):

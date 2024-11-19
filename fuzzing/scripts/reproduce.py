@@ -143,20 +143,25 @@ def main():
         benchmark = "all"
         target_list = [x for (x,y,z,w,_) in FUZZ_TARGETS]
         tools += ["AFLpp"]
-        seed_mode = "all"
+#        seed_mode = "all"
 
     elif target == "table4":
         benchmark = "selectfuzz"
         target_list = [x for (x,y,z,w,_) in SELECTFUZZ_TARGETS]
         tools += ["SelectFuzz"]
-        seed_mode = "all"
+#        seed_mode = "all"
+
+    elif target == "table5":
+        benchmark = "dafl"
+        target_list = [x for (x,y,z,w,_) in FUZZ_TARGETS]
+        tools += ["DAFL"]
+#        seed_mode = "all"
 
     else:
         print("Invalid target!")
         exit(1)
 
-
-    if seed_mode != "all" and seed_mode not in SEED_MODES:
+    if seed_mode != "all" and seed_mode != "4-8" and seed_mode not in SEED_MODES:
         print("Invalid seed_mode! Choose from %s" % SEED_MODES)
         exit(1)
 

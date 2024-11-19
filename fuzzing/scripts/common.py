@@ -2,9 +2,9 @@ import subprocess
 
 MAX_INSTANCE_NUM = 40
 MEM_PER_INSTANCE = 4  # GB
-IMAGE_NAME = "llm1dfuzz-artifact"
+IMAGE_NAME = "llm1dfuzz-artifact-dafl"
 SUPPORTED_TOOLS = \
-  ["AFLpp", "SelectFuzz", ]
+        ["AFLpp", "SelectFuzz", "DAFL", ]
 SEED_MODES = ["minimal", "llm-best", "llm-worst", "random-1", "random-2", "random-3", "random-4", "random-5", "random-6", "random-7", "random-8"]
 
 
